@@ -5,6 +5,7 @@ import com.example.PracticaSpringBoot.models.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -17,16 +18,21 @@ public class UserController  {
     private UsuarioDao usuarioDao;
 
     //devuelve un listado completo de usuarios
-    @RequestMapping (value="usuarios")
+    @RequestMapping (value="api/usuarios")
     public List<Usuario> getUsers() {
         return usuarioDao.getUsuarios();
 
 
     }
+    @RequestMapping(value = "api/usuarios/{id}", method = RequestMethod.DELETE)
+    public void deleteUser(@PathVariable Long id) {
+        usuarioDao.deleteUser(id);
+    }
     /*
      //devuelve un usuario
-    @RequestMapping (value="usuario/{id}")
-    public Usuario getUser(@PathVariable String id) {
+
+    @RequestMapping(value = "api/usuarios/{id}", method = RequestMethod.DELETE)
+    public Usuario deleteUser(@PathVariable String id) {
         Usuario u = new Usuario();
         u.setEmail("pilaralonsosuela@gmail.com");
         u.setNombre("Pilar");
